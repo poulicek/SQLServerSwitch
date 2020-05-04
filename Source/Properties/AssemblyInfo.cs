@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SQLServerSwitch")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SQL Server Switch")]
+[assembly: AssemblyDescription("Starts and stops the MSSQL server process")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SQLServerSwitch")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCompany("BitIT s.r.o.")]
+[assembly: AssemblyProduct("Keyboard Locker")]
+[assembly: AssemblyCopyright("Copyright © BitIT s.r.o. 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
