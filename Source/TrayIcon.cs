@@ -1,17 +1,21 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 using System.ServiceProcess;
 using System.Windows.Forms;
-using Common;
+using TrayToolkit.Helpers;
+using TrayToolkit.UI;
 
 namespace SQLServerSwitch
 {
     public partial class TrayIcon : TrayIconBase
     {
         private const string SERVICE_NAME = "MSSQL$SQLEXPRESS";
+        private readonly Bitmap toolTipIcon;
 
 
         public TrayIcon() : base ("SQL Server Switch")
         {
+            this.toolTipIcon = ResourceHelper.GetResourceImage(this.getIconName(false));
         }
 
         protected override string getIconName(bool lightMode)
@@ -45,18 +49,25 @@ namespace SQLServerSwitch
 
             try
             {
-                Process.Start(new ProcessStartInfo()
-                {
-                    FileName = @"cmd",
-                    Arguments = $"/k net {(isRunning ? "stop" : "start")} {SERVICE_NAME} & exit",
-                    CreateNoWindow = true,
-                    Verb = "runas",
-
-                }).WaitForExit();
+                BalloonTooltip.Show(isRunning ? "Stopping the SQL Server..." : "Starting the SQL Server...", this.toolTipIcon, () => this.switchSqlServer(!isRunning));
             }
             catch { }
 
             this.updateLook();
+        }
+
+
+        private void switchSqlServer(bool start)
+        {
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = @"cmd",
+                Arguments = $"/k net {(start ? "start" : "stop")} {SERVICE_NAME} & exit",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                Verb = "runas",
+
+            }).WaitForExit();
         }
 
 

@@ -49,10 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\TrayIconBase.cs">
-      <Link>TrayIconBase.cs</Link>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="TrayIcon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SQLServerSwitch.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TrayToolkit\Source\TrayToolkit.csproj">
+      <Project>{66804e1f-9a5c-44f0-a557-d92234347298}</Project>
+      <Name>TrayToolkit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
