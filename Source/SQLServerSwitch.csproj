@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{855E79EF-1E63-4A3E-953E-3B5DC52EBD4C}</ProjectGuid>
+    <ProjectGuid>{BA0EB6ED-736F-4500-8924-11A292BAFDFA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SQLServerSwitch</RootNamespace>
     <AssemblyName>SQLServerSwitch</AssemblyName>
