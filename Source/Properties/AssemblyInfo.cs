@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Starts and stops the MSSQL server process")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BitIT s.r.o.")]
-[assembly: AssemblyProduct("Keyboard Locker")]
+[assembly: AssemblyProduct("SQL Server Switch")]
 [assembly: AssemblyCopyright("Copyright © BitIT s.r.o. 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
