@@ -13,7 +13,7 @@ namespace SQLServerSwitch
         private readonly Bitmap toolTipIcon;
 
 
-        public TrayIcon() : base ("SQL Server Switch")
+        public TrayIcon() : base ("SQL Server Switch", "https://github.com/poulicek/SQLServerSwitch")
         {
             this.toolTipIcon = ResourceHelper.GetResourceImage(this.getIconName(false));
         }
