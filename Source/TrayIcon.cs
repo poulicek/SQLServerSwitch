@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using TrayToolkit.Helpers;
@@ -9,7 +11,7 @@ namespace SQLServerSwitch
 {
     public partial class TrayIcon : TrayIconBase
     {
-        private const string SERVICE_NAME = "MSSQL$SQLEXPRESS";
+        private readonly string[] SERVICE_NAMES = new string[] { "MSSQL$SQLEXPRESS", "MSSQLSERVER" };
         private readonly Bitmap toolTipIcon;
 
 
@@ -57,12 +59,26 @@ namespace SQLServerSwitch
         }
 
 
+        private string getServiceName()
+        {
+            foreach (var svc in ServiceController.GetServices())
+                if (SERVICE_NAMES.Contains(svc.ServiceName))
+                    return svc.ServiceName;
+
+            return null;
+        }
+
+
         private void switchSqlServer(bool start)
         {
+            var svcName = this.getServiceName();
+            if (string.IsNullOrEmpty(svcName))
+                return;
+
             Process.Start(new ProcessStartInfo()
             {
                 FileName = @"cmd",
-                Arguments = $"/k net {(start ? "start" : "stop")} {SERVICE_NAME} & exit",
+                Arguments = $"/k net {(start ? "start" : "stop")} {svcName} & exit",
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 Verb = "runas",
@@ -70,10 +86,17 @@ namespace SQLServerSwitch
             }).WaitForExit();
         }
 
-
         private ServiceControllerStatus getSqlStatus()
         {
-            return new ServiceController(SERVICE_NAME)?.Status ?? ServiceControllerStatus.Stopped;
+            try
+            {
+                var svcName = this.getServiceName();
+                if (string.IsNullOrEmpty(svcName))
+                    return ServiceControllerStatus.Stopped;
+
+                return new ServiceController(svcName)?.Status ?? ServiceControllerStatus.Stopped;
+            }
+            catch (InvalidOperationException) { return ServiceControllerStatus.Stopped; }
         }
 
 
